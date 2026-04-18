@@ -15,4 +15,4 @@ ansible_winrm_server_cert_validation: ignore
 network_adapter_name: "Ethernet"
 network_prefix_length: 27
 network_gateway: "10.8.40.1"
-configure_full_network: false
+configure_full_network: true
