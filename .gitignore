@@ -1,0 +1,29 @@
+# Ansible
+*.retry
+*.log
+.ansible/
+
+# Vault and secrets
+*.vault
+*.key
+*.pem
+vault.yml
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Editor and OS files
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+
+# Test and cache artifacts
+.pytest_cache/
+.mypy_cache/
+.cache/

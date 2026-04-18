@@ -1,0 +1,21 @@
+ad_ous:
+  - name: "Serveurs"
+    path: "DC=cynto,DC=tech"
+  - name: "Utilisateurs"
+    path: "DC=cynto,DC=tech"
+
+ad_groups:
+  - name: "GG_Admins_Infra"
+    scope: "global"
+    category: "security"
+    path: "OU=Groupes,DC=cynto,DC=tech"
+
+ad_users:
+  - name: "nicolas.pelissier"
+    upn: "nicolas.pelissier@cynto.tech"
+    firstname: "Nicolas"
+    surname: "Pelissier"
+    password: "{{ vault_default_user_password }}"
+    path: "OU=Utilisateurs,DC=cynto,DC=tech"
+    groups:
+      - "GG_Admins_Infra"

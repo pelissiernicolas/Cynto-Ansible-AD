@@ -1,0 +1,17 @@
+ad_domain_name: "cynto.tech"
+ad_netbios_name: "CYNTO"
+
+ad_forest_mode: "WinThreshold"
+ad_domain_mode: "WinThreshold"
+
+domain_admin_user: "Administrateur"
+
+dns_forwarders:
+  - "10.8.99.10"
+  - "10.8.99.1&"
+
+ntp_servers:
+  - "0.fr.pool.ntp.org"
+  - "1.fr.pool.ntp.org"
+
+default_dns_suffix: "cynto.local"

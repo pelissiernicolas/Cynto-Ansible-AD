@@ -1,0 +1,3 @@
+server_hostname: "srrv-dc-01"
+server_ip: "10.8.40.10"
+server_role: "domain_controller"
