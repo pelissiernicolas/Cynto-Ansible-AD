@@ -1,0 +1,30 @@
+ad_domain_name: "cynto.tech"
+ad_netbios_name: "CYNTO"
+
+ad_forest_mode: "WinThreshold"
+ad_domain_mode: "WinThreshold"
+
+domain_admin_user: "Administrateur"
+
+dns_forwarders:
+  - "10.8.99.10"
+  - "10.8.99.11"
+
+ntp_servers:
+  - "0.fr.pool.ntp.org"
+  - "1.fr.pool.ntp.org"
+
+default_dns_suffix: "cynto.tech"
+
+dns_forward_zone_name: "cynto.tech"
+dns_reverse_zone_name: "40.8.10.in-addr.arpa"
+dns_reverse_network_id: "10.8.40.0/24"
+
+dns_hosts:
+  - name: "srv-ad-01"
+    ip: "10.8.40.10"
+    create_ptr: true
+
+  - name: "srv-ad-02"
+    ip: "10.8.40.11"
+    create_ptr: true

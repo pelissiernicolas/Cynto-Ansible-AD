@@ -11,3 +11,8 @@ ansible_password: "{{ vault_windows_admin_password }}"
 ansible_port: 5985
 ansible_winrm_transport: basic
 ansible_winrm_server_cert_validation: ignore
+
+network_adapter_name: "Ethernet"
+network_prefix_length: 27
+network_gateway: "10.8.40.1"
+configure_full_network: false

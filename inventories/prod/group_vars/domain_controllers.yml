@@ -1,8 +1,18 @@
 ad_ous:
   - name: "Serveurs"
     path: "DC=cynto,DC=tech"
+
   - name: "Utilisateurs"
     path: "DC=cynto,DC=tech"
+
+  - name: "Groupes"
+    path: "DC=cynto,DC=tech"
+
+  - name: "Admins"
+    path: "OU=Utilisateurs,DC=cynto,DC=tech"
+
+  - name: "Comptes de service"
+    path: "OU=Utilisateurs,DC=cynto,DC=tech"
 
 ad_groups:
   - name: "GG_Admins_Infra"
@@ -10,12 +20,36 @@ ad_groups:
     category: "security"
     path: "OU=Groupes,DC=cynto,DC=tech"
 
+  - name: "GG_Utilisateurs_Standard"
+    scope: "global"
+    category: "security"
+    path: "OU=Groupes,DC=cynto,DC=tech"
+
+  - name: "GG_Serveurs_Admin"
+    scope: "global"
+    category: "security"
+    path: "OU=Groupes,DC=cynto,DC=tech"
+
 ad_users:
   - name: "nicolas.pelissier"
-    upn: "nicolas.pelissier@cynto.tech"
     firstname: "Nicolas"
     surname: "Pelissier"
+    display_name: "Nicolas Pelissier"
+    upn: "nicolas.pelissier@cynto.tech"
     password: "{{ vault_default_user_password }}"
-    path: "OU=Utilisateurs,DC=cynto,DC=tech"
+    path: "OU=Admins,OU=Utilisateurs,DC=cynto,DC=tech"
+    enabled: true
+    password_never_expires: false
     groups:
       - "GG_Admins_Infra"
+
+  - name: "svc_wsus"
+    firstname: "svc"
+    surname: "wsus"
+    display_name: "Service WSUS"
+    upn: "svc_wsus@cynto.tech"
+    password: "{{ vault_service_account_password }}"
+    path: "OU=Comptes de service,OU=Utilisateurs,DC=cynto,DC=tech"
+    enabled: true
+    password_never_expires: true
+    groups: []

@@ -1,0 +1,64 @@
+- name: Afficher la configuration cible
+  ansible.builtin.debug:
+    msg:
+      - "Serveur: {{ inventory_hostname }}"
+      - "Interface: {{ network_adapter_name }}"
+      - "IP cible: {{ server_ip }}/{{ network_prefix_length }}"
+      - "Passerelle: {{ network_gateway }}"
+      - "DNS: {{ network_dns_servers }}"
+
+- name: Configurer les DNS du client
+  ansible.windows.win_dns_client:
+    adapter_names: "{{ network_adapter_name }}"
+    ipv4_addresses: "{{ network_dns_servers }}"
+
+- name: Vérifier l'IP actuelle
+  ansible.windows.win_powershell:
+    script: |
+      $ip = Get-NetIPAddress -InterfaceAlias "{{ network_adapter_name }}" -AddressFamily IPv4 -ErrorAction SilentlyContinue |
+        Where-Object { $_.IPAddress -notlike '169.254*' } |
+        Select-Object -First 1 -ExpandProperty IPAddress
+      if ($null -eq $ip) { "" } else { $ip }
+  register: current_ip
+  changed_when: false
+
+- name: Configurer l'IP et la passerelle si nécessaire
+  ansible.windows.win_powershell:
+    script: |
+      $alias = "{{ network_adapter_name }}"
+      $wantedIp = "{{ server_ip }}"
+      $wantedPrefix = {{ network_prefix_length }}
+      $wantedGw = "{{ network_gateway }}"
+
+      $current = Get-NetIPAddress -InterfaceAlias $alias -AddressFamily IPv4 -ErrorAction SilentlyContinue |
+        Where-Object { $_.IPAddress -notlike '169.254*' }
+
+      $gwCurrent = Get-NetRoute -InterfaceAlias $alias -DestinationPrefix "0.0.0.0/0" -ErrorAction SilentlyContinue |
+        Select-Object -First 1
+
+      $needsChange = $true
+
+      if ($current) {
+        $currentIp = $current[0].IPAddress
+        $currentPrefix = $current[0].PrefixLength
+
+        if ($currentIp -eq $wantedIp -and $currentPrefix -eq $wantedPrefix -and $gwCurrent.NextHop -eq $wantedGw) {
+          $needsChange = $false
+        }
+      }
+
+      if (-not $needsChange) {
+        Write-Output "No change required"
+        exit 0
+      }
+
+      Get-NetIPAddress -InterfaceAlias $alias -AddressFamily IPv4 -ErrorAction SilentlyContinue |
+        Remove-NetIPAddress -Confirm:$false -ErrorAction SilentlyContinue
+
+      Get-NetRoute -InterfaceAlias $alias -DestinationPrefix "0.0.0.0/0" -ErrorAction SilentlyContinue |
+        Remove-NetRoute -Confirm:$false -ErrorAction SilentlyContinue
+
+      New-NetIPAddress -InterfaceAlias $alias -IPAddress $wantedIp -PrefixLength $wantedPrefix -DefaultGateway $wantedGw
+      Write-Output "Network updated"
+  when:
+    - configure_full_network | default(false) | bool
