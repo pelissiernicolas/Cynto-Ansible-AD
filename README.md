@@ -12,7 +12,6 @@ Il couvre notamment :
 
 L’objectif est de fournir une base fiable, reproductible et maintenable pour le déploiement d’un environnement Active Directory.
 
----
 ## Prérequis
 
 - Ansible installé sur la machine de contrôle
@@ -20,7 +19,6 @@ L’objectif est de fournir une base fiable, reproductible et maintenable pour l
 - Comptes administrateurs sur les machines Windows
 - Python non requis sur les hôtes Windows (utilisation de WinRM)
 
----
 ## Préparation des serveurs Windows
 
 Avant toute exécution des playbooks, chaque serveur Windows doit être configuré pour accepter les connexions Ansible via WinRM.
@@ -52,7 +50,6 @@ Enable-NetFirewallRule -Name *WinRM*
 
 Important : cette configuration est adaptée à un environnement de test. En production, privilégier WinRM en HTTPS et l’authentification Kerberos.
 
----
 ## Structure du projet
 
 ```bash
@@ -67,7 +64,6 @@ Cynto-Ansible-AD/
 ├── host_vars/  
 └── README.md
 ```
----
 ## Gestion des secrets avec Ansible Vault
 
 Les informations sensibles (mots de passe, comptes, etc.) sont stockées dans un fichier chiffré avec Ansible Vault.
@@ -100,8 +96,6 @@ Un mot de passe Vault sera demandé.
 ```
 ansible-vault edit inventories/prod/group_vars/all/vault.yml
 ```
-
----
 ## Configuration de l’inventaire
 
 Exemple d’inventaire :
@@ -121,7 +115,6 @@ Avant le déploiement, tester la communication avec les serveurs :
 ansible windows -m win_ping
 ```
 
----
 ## Exécution des playbooks
 
 Lancer le déploiement complet :
@@ -130,7 +123,6 @@ Lancer le déploiement complet :
 ansible-playbook playbooks/00-site.yml --ask-vault-pass
 ```
 
----
 ## Sécurité
 
 - Éviter l’utilisation de `AllowUnencrypted` en production
@@ -139,7 +131,6 @@ ansible-playbook playbooks/00-site.yml --ask-vault-pass
 - Protéger les secrets avec Ansible Vault
 - Restreindre les accès réseau aux ports nécessaires
 
----
 ## Maintenabilité
 
 - Structurer les rôles de manière modulaire
@@ -147,7 +138,6 @@ ansible-playbook playbooks/00-site.yml --ask-vault-pass
 - Documenter chaque rôle
 - Versionner les configurations
 
----
 ## Auteur
 
 Nicolas Pelissier
