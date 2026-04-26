@@ -64,3 +64,14 @@ ad_users:
     enabled: true
     password_never_expires: true
     groups: []
+
+  - name: "svc-glpi"
+    firstname: "svc"
+    surname: "glpi"
+    display_name: "Service GLPI"
+    upn: "svc_glpi@cynto.tech"
+    password: "{{ vault_service_account_password }}"
+    path: "OU=Comptes de service,OU=Utilisateurs,DC=cynto,DC=tech"
+    enabled: true
+    password_never_expires: true
+    groups: []
