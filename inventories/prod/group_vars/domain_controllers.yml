@@ -7,9 +7,15 @@ ad_ous:
 
   - name: "Groupes"
     path: "DC=cynto,DC=tech"
+  
+  - name: "ALL_Utilisateurs"
+    path: "OU=Utilisateurs,DC=cynto,DC=tech"
 
   - name: "Admins"
-    path: "OU=Utilisateurs,DC=cynto,DC=tech"
+    path: "OU=ALL_Utilisateurs,OU=Utilisateurs,DC=cynto,DC=tech"
+
+  - name: "Commerciaux"
+    path: "OU=ALL_Utilisateurs,OU=Utilisateurs,DC=cynto,DC=tech"
 
   - name: "Comptes de service"
     path: "OU=Utilisateurs,DC=cynto,DC=tech"
@@ -37,7 +43,7 @@ ad_users:
     display_name: "Nicolas Pelissier"
     upn: "nicolas.pelissier@cynto.tech"
     password: "{{ vault_default_user_password }}"
-    path: "OU=Admins,OU=Utilisateurs,DC=cynto,DC=tech"
+    path: "OU=Admins,OU=ALL_Utilisateurs,OU=Utilisateurs,DC=cynto,DC=tech"
     enabled: true
     password_never_expires: false
     groups:
