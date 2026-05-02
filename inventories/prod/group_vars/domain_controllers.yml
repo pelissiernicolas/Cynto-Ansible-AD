@@ -35,6 +35,11 @@ ad_groups:
     scope: "global"
     category: "security"
     path: "OU=Groupes,DC=cynto,DC=tech"
+  
+  - name: "GG_VPN_Users"
+    scope: "global"
+    category: "security"
+    path: "OU=Groupes,DC=cynto,DC=tech"
 
 ad_users:
   - name: "nicolas.pelissier"
@@ -48,6 +53,7 @@ ad_users:
     password_never_expires: false
     groups:
       - "GG_Admins_Infra"
+      - "GG_VPN_Users"
 
   - name: "svc_wsus"
     firstname: "svc"
@@ -76,6 +82,17 @@ ad_users:
     surname: "glpi"
     display_name: "Service GLPI"
     upn: "svc_glpi@cynto.tech"
+    password: "{{ vault_service_account_password }}"
+    path: "OU=Comptes de service,OU=Utilisateurs,DC=cynto,DC=tech"
+    enabled: true
+    password_never_expires: true
+    groups: []
+  
+  - name: "svc_ldap"
+    firstname: "svc"
+    surname: "ldap"
+    display_name: "Service LDAP"
+    upn: "svc_ldap@cynto.tech"
     password: "{{ vault_service_account_password }}"
     path: "OU=Comptes de service,OU=Utilisateurs,DC=cynto,DC=tech"
     enabled: true
