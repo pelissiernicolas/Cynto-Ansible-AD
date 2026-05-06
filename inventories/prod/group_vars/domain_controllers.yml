@@ -7,7 +7,13 @@ ad_ous:
 
   - name: "Groupes"
     path: "DC=cynto,DC=tech"
+
+  - name: "Nextcloud-Groupes"
+    path: "OU=Groupes,DC=cynto,DC=tech"
   
+  - name: "GLPI-Groupes"
+    path: "OU=Groupes,DC=cynto,DC=tech"
+
   - name: "ALL_Utilisateurs"
     path: "OU=Utilisateurs,DC=cynto,DC=tech"
 
@@ -40,6 +46,47 @@ ad_groups:
     scope: "global"
     category: "security"
     path: "OU=Groupes,DC=cynto,DC=tech"
+  
+  - name: "GG_Nextcloud_Users"
+    scope: "global"
+    category: "security"
+    path: "OU=Nextcloud-Groupes,OU=Groupes,DC=cynto,DC=tech"
+  
+  - name: "GG_Nextcloud_Admins"
+    scope: "global"
+    category: "security"
+    path: "OU=Nextcloud-Groupes,OU=Groupes,DC=cynto,DC=tech"
+
+  - name: "GG_Nextcloud_50gb"
+    scope: "global"
+    category: "security"
+    path: "OU=Nextcloud-Groupes,OU=Groupes,DC=cynto,DC=tech"
+  
+  - name: "GG_Nextcloud_10gb"
+    scope: "global"
+    category: "security"
+    path: "OU=Nextcloud-Groupes,OU=Groupes,DC=cynto,DC=tech"
+
+  - name: "GG_Nextcloud_5gb"
+    scope: "global"
+    category: "security"
+    path: "OU=Nextcloud-Groupes,OU=Groupes,DC=cynto,DC=tech"
+
+### GLPI Groups
+  - name: "GG_GLPI_Admin"
+    scope: "global"
+    category: "security"
+    path: "OU=GLPI-Groupes,OU=Groupes,DC=cynto,DC=tech"
+  
+  - name: "GG_GLPI_Tech"
+    scope: "global"
+    category: "security"
+    path: "OU=GLPI-Groupes,OU=Groupes,DC=cynto,DC=tech"
+
+  - name: "GG_GLPI_Users"
+    scope: "global"
+    category: "security"
+    path: "OU=GLPI-Groupes,OU=Groupes,DC=cynto,DC=tech"
 
 ad_users:
   - name: "nicolas.pelissier"
@@ -54,6 +101,8 @@ ad_users:
     groups:
       - "GG_Admins_Infra"
       - "GG_VPN_Users"
+      - "GG_Nextcloud_Admins"
+      - "GG_Nextcloud_10gb"
 
   - name: "svc_wsus"
     firstname: "svc"
