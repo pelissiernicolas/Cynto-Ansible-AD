@@ -137,11 +137,11 @@ ad_users:
     password_never_expires: true
     groups: []
   
-  - name: "svc_ldap"
+  - name: "svc_pfsense"
     firstname: "svc"
-    surname: "ldap"
-    display_name: "Service LDAP"
-    upn: "svc_ldap@cynto.tech"
+    surname: "pfsense"
+    display_name: "Service PFSense"
+    upn: "svc_pfsense@cynto.tech"
     password: "{{ vault_service_account_password }}"
     path: "OU=Comptes de service,OU=Utilisateurs,DC=cynto,DC=tech"
     enabled: true
